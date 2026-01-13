@@ -12,6 +12,7 @@
 # Linux Kernel Versions
 %define _basekver 6.19
 %define _stablekver 0
+%define _gittag v6.19-rc5
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -114,7 +115,7 @@ BuildRequires:  gcc-c++
 %endif
 
 # Indexes 0-9 are reserved for the kernel. 10-19 will be reserved for NVIDIA
-Source0:        https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-%{_tarkver}.tar.xz
+Source0:        https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/snapshot/linux-%{_gittag}.tar.gz
 Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/config
 
 %if %{_build_minimal}
@@ -143,7 +144,7 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
     The meta package for %{name}.
 
 %prep
-%setup -q %{?SOURCE10:-b 10} -n linux-%{_tarkver}
+%setup -q %{?SOURCE10:-b 10} -n linux-%{_gittag}
 %autopatch -p1 -v -M 9
 
     cp %{SOURCE1} .config
