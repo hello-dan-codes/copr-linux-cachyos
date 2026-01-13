@@ -69,7 +69,7 @@
     %define _lto_args CC=clang CXX=clang++ LD=ld.lld LLVM=1 LLVM_IAS=1
 %endif
 
-%define _module_args KERNEL_UNAME=%{_kver} IGNORE_PREEMPT_RT_PRESENCE=1 SYSSRC=%{_builddir}/linux-%{_tarkver} SYSOUT=%{_builddir}/linux-%{_tarkver}
+%define _module_args KERNEL_UNAME=%{_kver} IGNORE_PREEMPT_RT_PRESENCE=1 SYSSRC=%{_builddir}/linux-%{_gittag} SYSOUT=%{_builddir}/linux-%{_gittag}
 
 Name:           kernel-cachyos%{?_lto_args:-lto}
 Summary:        Linux BORE %{?_lto_args:+ LTO }Cachy Sauce Kernel by CachyOS with other patches and improvements.
@@ -199,7 +199,6 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
 cd %{_builddir}/%{_nv_pkg}/kernel-open
 %patch -P 10 -p1
 cd ..
-%autopatch -p1 -v -m 11 -M 19
 %endif
 
 %build
