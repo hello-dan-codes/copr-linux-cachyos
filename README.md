@@ -1,11 +1,13 @@
 <div align="center">
   <img src="https://github.com/CachyOS/calamares-config/blob/grub-3.2/etc/calamares/branding/cachyos/logo.png" width="64" alt="CachyOS logo"></img>
   <br/>
-  <h1 align="center">CachyOS COPR Repository for Fedora</h1>
-  <p align="center">Goodies from CachyOS ported to Fedora.</p>
+  <h1 align="center">CachyOS Linux 6.19 RC - Personal Testing Fork</h1>
+  <p align="center">Custom build of CachyOS Linux 6.19-rc5 for testing and integration with <a href="https://github.com/hello-dan-codes/bazzite">Bazzite</a>.</p>
 </div>
 
-This repository is maintained by [@andersrh](https://github.com/andersrh) and [@TrixieUA](https://github.com/TrixieUA).
+This repository is a personal testing fork for building and integrating CachyOS Linux 6.19-rc5 with [Bazzite](https://github.com/hello-dan-codes/bazzite).
+
+**Note:** This uses Linux kernel 6.19-rc5 built from git, which is a release candidate version and may be unstable. Use at your own risk for testing purposes only.
 
 - [Kernels](#-kernels)
   - [Features](#-features)
@@ -17,15 +19,10 @@ This repository is maintained by [@andersrh](https://github.com/andersrh) and [@
   - [scx-manager](#scx-manager)
   - [ananicy-cpp](#ananicy-cpp)
 
-# 🐧 Kernels
+# 🐧 Kernel
 
-We offer a variety of CachyOS kernels ported to Fedora:
-- `kernel-cachyos` - 1000 Hz kernel with BORE scheduler
-- `kernel-cachyos-lts` - LTS kernel with BORE scheduler
-- `kernel-cachyos-rt` - Real-time kernel with BORE scheduler
-- `kernel-cachyos-server` - 300 Hz kernel with default EEVDF scheduler
-
-For Fedora Workstation and Silverblue we recommend `kernel-cachyos` and for Fedora Server, Cloud and CoreOS we recommend `kernel-cachyos-server`. The LTS and Real-time kernels are for special use cases (think embedded systems) and are not recommended unless your application requires them.
+This repository builds a single CachyOS kernel variant:
+- `kernel-cachyos` - 1000 Hz kernel with BORE scheduler, built from Linux 6.19-rc5 git snapshot
 
 ## 🌟 Features
 - Choose between `GCC` and `LLVM-ThinLTO`
