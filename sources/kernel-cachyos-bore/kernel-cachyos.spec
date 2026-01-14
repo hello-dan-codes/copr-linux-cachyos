@@ -1,7 +1,7 @@
 # Fedora bits
 %define __spec_install_post %{__os_install_post}
 %define _build_id_links none
-%define _default_patch_fuzz 2
+%define _default_patch_fuzz 3
 %define _disable_source_fetch 0
 %define debug_package %{nil}
 %define make_build make %{?_lto_args} %{?_smp_mflags}
@@ -132,10 +132,9 @@ Source10:       https://github.com/NVIDIA/open-gpu-kernel-modules/archive/%{_nv_
 Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
 Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
 Patch2:         all_msi_patches.patch
-Patch3:         msi_additional.patch
 
 %if %{_build_lto}
-Patch4:         %{_patch_src}/misc/dkms-clang.patch
+Patch3:         %{_patch_src}/misc/dkms-clang.patch
 %endif
 
 %if %{_build_nv}
@@ -147,7 +146,7 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
 
 %prep
 %setup -q %{?SOURCE10:-b 10} -n linux-%{_gittag}
-%autopatch -p1 -v -M 11
+%autopatch -p1 -v -M 10
 
     cp %{SOURCE1} .config
 
