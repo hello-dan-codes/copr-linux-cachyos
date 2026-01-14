@@ -140,12 +140,16 @@ Patch2:         %{_patch_src}/misc/dkms-clang.patch
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
 %endif
 
+Source20: 0001-msi-claw-8-ai.patch
+Patch20: 0001-msi-claw-8-ai.patch
+
+
 %description
     The meta package for %{name}.
 
 %prep
 %setup -q %{?SOURCE10:-b 10} -n linux-%{_gittag}
-%autopatch -p1 -v -M 9
+%autopatch -p1 -v -M 20
 
     cp %{SOURCE1} .config
 
