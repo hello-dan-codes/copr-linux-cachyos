@@ -131,10 +131,9 @@ Source10:       https://github.com/NVIDIA/open-gpu-kernel-modules/archive/%{_nv_
 
 Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
 Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
-Patch2:         all_msi_patches.patch
 
 %if %{_build_lto}
-Patch3:         %{_patch_src}/misc/dkms-clang.patch
+Patch2:         %{_patch_src}/misc/dkms-clang.patch
 %endif
 
 %if %{_build_nv}
@@ -146,7 +145,7 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
 
 %prep
 %setup -q %{?SOURCE10:-b 10} -n linux-%{_gittag}
-%autopatch -p1 -v -M 10
+%autopatch -p1 -v -M 9
 
     cp %{SOURCE1} .config
 

@@ -9,26 +9,8 @@ This repository is a personal testing fork for building and integrating CachyOS 
 
 **Note:** This uses Linux kernel 6.19-rc5 built from git, which is a release candidate version and may be unstable. Use at your own risk for testing purposes only.
 
-## 📋 Patches Applied
-
-This kernel includes the following patch sources:
-
-1. **CachyOS Base Patches** (`Patch0`) - CachyOS kernel optimizations and tweaks
-2. **BORE Scheduler** (`Patch1`) - BORE CPU scheduler with sched-ext support
-3. **MSI WMI Platform Patches** (`Patch2`) - 12 patches from Bazzite for MSI Claw 8 AI+ support:
-   - MSI Claw device detection and quirk system
-   - Platform profile via Shift Mode (Sport/Comfort/Green/Eco/User modes)
-   - Fan control and sensor access
-   - TDP/power tunable support
-   - Battery charge threshold control
-4. **Additional MSI Patches** (`Patch3`) - 3 supplementary patches:
-   - MSI Center button support
-   - Keyboard platform profile support
-   - MSI platform brightness control
-
 - [Kernels](#-kernels)
   - [Features](#-features)
-  - [Patches Applied](#-patches-applied)
   - [Installation Instructions](#%EF%B8%8F-installation-instructions)
     - [Default Kernel](#default-kernel)
 - [Addons](#-addons)
@@ -45,16 +27,10 @@ This repository builds a single CachyOS kernel variant:
 ## 🌟 Features
 - Choose between `GCC` and `LLVM-ThinLTO`
 - Optimized for `x86-64v3` CPUs for `kernel-cachyos` and `x86-64v2` for `kernel-cachyos-lts` and `kernel-cachyos-server`
-- **Intel Lunar Lake optimizations** (x86-64-v4 ISA support, P-State, TPM 2.0, Thunderbolt)
-- **MSI Claw 8 AI+ platform support** - Full WMI platform driver integration with:
-  - Shift Mode (Platform Profile) support for power management
-  - Fan control and sensor access
-  - Firmware-level power tunables
-  - Battery charging threshold control
-  - TDP/power mode switching (Sport/Comfort/Green/Eco/User modes)
 - BORE scheduler with sched-ext support (excl. `kernel-cachyos-server`, sched-ext support only for `kernel-cachyos`)
 - AMD P-State Preferred Core, AMD CPB Switch and upstream `amd-pstate` enchancements (exclusive to `kernel-cachyos`)
 - Cachy Sauce - Provides tweaks for the scheduler and other settings
+- Prebuilt `nvidia-open` kernel modules
 - Latest & improved ZSTD patchset
 - Improved BFQ Scheduler
 - BBRv3 tcp_congestion_control
