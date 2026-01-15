@@ -140,8 +140,8 @@ Patch2:         %{_patch_src}/misc/dkms-clang.patch
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
 %endif
 
-Source20: 0001-msi-claw-8-ai.patch
-Patch20: 0001-msi-claw-8-ai.patch
+Source20: 0001-Added-MSI-Claw-8-AI-patches.patch
+Patch20: 0001-Added-MSI-Claw-8-AI-patches.patch
 
 
 %description
