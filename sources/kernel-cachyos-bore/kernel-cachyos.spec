@@ -143,8 +143,8 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
 Source11: 0001-Added-MSI-Claw-8-AI-patches.patch
 Patch11: 0001-Added-MSI-Claw-8-AI-patches.patch
 
-Source12: 0002-Added-intel-xe-driver-from-drm-xe-next.patch
-Patch12: 0002-Added-intel-xe-driver-from-drm-xe-next.patch
+# Source12: 0002-Added-intel-xe-driver-from-drm-xe-next.patch
+# Patch12: 0002-Added-intel-xe-driver-from-drm-xe-next.patch
 
 %description
     The meta package for %{name}.
