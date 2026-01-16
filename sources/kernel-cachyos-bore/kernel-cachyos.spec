@@ -28,7 +28,7 @@
 
 # Builds the kernel with clang and enables
 # ThinLTO
-%define _build_lto 1
+%define _build_lto 0
 
 # Builds nvidia-open kernel modules with
 # the kernel
