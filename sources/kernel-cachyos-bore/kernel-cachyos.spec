@@ -160,7 +160,9 @@ Patch11: %{_patch_src}/misc/0001-handheld.patch
     scripts/config -e FW_ATTR_CLASS
     scripts/config -e ACPI_WMI
     scripts/config -e MSI_WMI
-    scripts/config -e MSI_WMI_PLATFORM    
+    scripts/config -e MSI_WMI_PLATFORM
+    scripts/config -e HID_MSI_CLAW
+    scripts/config -e ASUS_ARMOURY
 
     # Use SElinux by default
     # https://github.com/sirlucjan/copr-linux-cachyos/pull/1
