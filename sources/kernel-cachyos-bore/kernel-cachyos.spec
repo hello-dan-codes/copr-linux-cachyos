@@ -156,6 +156,12 @@ Patch11: %{_patch_src}/misc/0001-handheld.patch
     # used in the default linux-cachyos kernel
     scripts/config -e CACHY -e SCHED_BORE
 
+    # Firmware attributes + MSI WMI support
+    scripts/config -e FW_ATTR_CLASS
+    scripts/config -e ACPI_WMI
+    scripts/config -e MSI_WMI
+    scripts/config -e MSI_WMI_PLATFORM    
+
     # Use SElinux by default
     # https://github.com/sirlucjan/copr-linux-cachyos/pull/1
     scripts/config --set-str CONFIG_LSM lockdown,yama,integrity,selinux,bpf,landlock
