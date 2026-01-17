@@ -142,6 +142,9 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
 
 Patch11: %{_patch_src}/misc/0001-handheld.patch
 
+Source12: 0001-drm-xe-next.patch
+Patch12: 0001-drm-xe-next.patch
+
 %description
     The meta package for %{name}.
 
