@@ -145,6 +145,9 @@ Patch11: %{_patch_src}/misc/0001-handheld.patch
 Source12: 0001-Increased-PL2-from-37-to-38.patch
 Patch12: 0001-Increased-PL2-from-37-to-38.patch
 
+Source13: 0001-Added-xe-driver-from-drm-xe-next.patch
+Patch13: 0001-Added-xe-driver-from-drm-xe-next.patch
+
 %description
     The meta package for %{name}.
 
