@@ -151,8 +151,8 @@ Patch13: 0001-Added-xe-driver-from-drm-xe-next.patch
 Source14: 0001-Added-header-file-for-pagemap.patch
 Patch14: 0001-Added-header-file-for-pagemap.patch
 
-Source15: 0001-Added-missing-flag.patch.patch
-Patch15: 0001-Added-missing-flag.patch.patch
+Source15: 0001-Added-missing-flag.patch
+Patch15: 0001-Added-missing-flag.patch
 
 %description
     The meta package for %{name}.
