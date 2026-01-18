@@ -148,6 +148,9 @@ Patch12: 0001-Increased-PL2-from-37-to-38.patch
 Source13: 0001-Added-xe-driver-from-drm-xe-next.patch
 Patch13: 0001-Added-xe-driver-from-drm-xe-next.patch
 
+Source14: 0001-Added-header-file-for-pagemap.patch
+Patch14: 0001-Added-header-file-for-pagemap.patch
+
 %description
     The meta package for %{name}.
 
