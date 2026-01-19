@@ -90,6 +90,7 @@ BuildRequires:  elfutils-devel
 BuildRequires:  flex
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
+BuildRequires:  git
 BuildRequires:  kmod
 BuildRequires:  make
 BuildRequires:  openssl
