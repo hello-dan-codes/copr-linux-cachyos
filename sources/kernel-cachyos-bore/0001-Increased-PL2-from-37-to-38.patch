@@ -1,0 +1,25 @@
+From bdce65ce363e114b0cb8b59bd3967f430d4a3c52 Mon Sep 17 00:00:00 2001
+From: Dan James <hello@dan.codes>
+Date: Sun, 18 Jan 2026 09:27:11 +0000
+Subject: [PATCH] Increased PL2 from 37 to 38
+
+---
+ drivers/platform/x86/msi-wmi-platform.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/msi-wmi-platform.c b/drivers/platform/x86/msi-wmi-platform.c
+index b40e15ac71cf..234f5006097e 100644
+--- a/drivers/platform/x86/msi-wmi-platform.c
++++ b/drivers/platform/x86/msi-wmi-platform.c
+@@ -240,7 +240,7 @@ static struct msi_wmi_platform_quirk quirk_gen2 = {
+ 	.restore_curves = true,
+ 	.pl_min = 8,
+ 	.pl1_max = 30,
+-	.pl2_max = 37
++	.pl2_max = 38
+ };
+ 
+ static const struct dmi_system_id msi_quirks[] = {
+-- 
+2.52.0
+

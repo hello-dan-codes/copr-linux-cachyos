@@ -1,7 +1,7 @@
 # Fedora bits
 %define __spec_install_post %{__os_install_post}
 %define _build_id_links none
-%define _default_patch_fuzz 2
+%define _default_patch_fuzz 3
 %define _disable_source_fetch 0
 %define debug_package %{nil}
 %define make_build make %{?_lto_args} %{?_smp_mflags}
@@ -10,8 +10,9 @@
 %undefine _include_frame_pointers
 
 # Linux Kernel Versions
-%define _basekver 6.18
-%define _stablekver 5
+%define _basekver 6.19
+%define _stablekver 0
+%define _gittag v6.19-rc5
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -20,6 +21,9 @@
 %else
     %define _tarkver %{version}
 %endif
+
+# GitLab archive extracts to "kernel/"
+%define _srcdir kernel
 
 # Build a minimal a kernel via modprobed.db
 # file to reduce build times
@@ -33,47 +37,42 @@
 # the kernel
 %define _nv_pkg open-gpu-kernel-modules-%{_nv_ver}
 %if 0%{?fedora} >= 43
-    %define _build_nv 1
-    %define _nv_ver 580.119.02
+    %define _build_nv 0
+    %define _nv_ver 590.44.01
 %elif 0%{?rhel}
     %define _build_nv 0
 %else
-    %define _build_nv 1
-    %define _nv_ver 580.119.02
+    %define _build_nv 0
+    %define _nv_ver 590.44.01
     %define _nv_old 1
 %endif
 
 # Define the tickrate used by the kernel
-# Valid values: 100, 250, 300, 500, 600, 750 and 1000
-# An invalid value will not fail and continue to use
-# 1000Hz tickrate
 %define _hz_tick 1000
 
 # Defines the x86_64 ISA level used
-# to compile the kernel
-# Valid values are 1-4
-# An invalid value will continue and use
-# x86_64_v3
-%define _x86_64_lvl 3
+%define _x86_64_lvl 4
 
 # Define variables for directory paths
-# to be used during packaging
 %define _kernel_dir /lib/modules/%{_kver}
 %define _devel_dir %{_usrsrc}/kernels/%{_kver}
 
 %define _patch_src https://raw.githubusercontent.com/CachyOS/kernel-patches/master/%{_basekver}
 
 %if %{_build_lto}
-    # Define build environment variables to build the kernel with clang
     %define _lto_args CC=clang CXX=clang++ LD=ld.lld LLVM=1 LLVM_IAS=1
 %endif
 
-%define _module_args KERNEL_UNAME=%{_kver} IGNORE_PREEMPT_RT_PRESENCE=1 SYSSRC=%{_builddir}/linux-%{_tarkver} SYSOUT=%{_builddir}/linux-%{_tarkver}
+%define _module_args \
+    KERNEL_UNAME=%{_kver} \
+    IGNORE_PREEMPT_RT_PRESENCE=1 \
+    SYSSRC=%{_builddir}/%{_srcdir} \
+    SYSOUT=%{_builddir}/%{_srcdir}
 
 Name:           kernel-cachyos%{?_lto_args:-lto}
 Summary:        Linux BORE %{?_lto_args:+ LTO }Cachy Sauce Kernel by CachyOS with other patches and improvements.
 Version:        %{_basekver}.%{_stablekver}
-Release:        cachyos1%{?_lto_args:.lto}%{?dist}
+Release:        cachyosdj002%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
 URL:            https://cachyos.org
 
@@ -113,14 +112,9 @@ BuildRequires:  llvm
 BuildRequires:  gcc-c++
 %endif
 
-# Indexes 0-9 are reserved for the kernel. 10-19 will be reserved for NVIDIA
-Source0:        https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-%{_tarkver}.tar.xz
 Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/config
 
 %if %{_build_minimal}
-# The default modprobed.db provided is used for linux-cachyos CI.
-# This should not be used for production and ideally should only be used for compile tests.
-# Note that any modprobed.db file is accepted
 Source2:        https://raw.githubusercontent.com/Frogging-Family/linux-tkg/master/linux-tkg-config/%{_basekver}/minimal-modprobed.db
 %endif
 
@@ -139,12 +133,27 @@ Patch2:         %{_patch_src}/misc/dkms-clang.patch
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
 %endif
 
+Patch11:        %{_patch_src}/misc/0001-handheld.patch
+
+Source12:       0001-Increased-PL2-from-37-to-38.patch
+Patch12:        0001-Increased-PL2-from-37-to-38.patch
+
 %description
-    The meta package for %{name}.
+The meta package for %{name}.
+
+# Use intel drm-xe-next branch linux source tree (fetched via git)
 
 %prep
-%setup -q %{?SOURCE10:-b 10} -n linux-%{_tarkver}
-%autopatch -p1 -v -M 9
+%if 0%{?rhel}
+# Clone the git repository for RHEL-based systems
+git clone --depth 1 --branch drm-xe-next https://gitlab.freedesktop.org/drm/xe/kernel.git %{_srcdir}
+%else
+# For other systems, fall back to tarball via git archive if needed
+git clone --depth 1 --branch drm-xe-next https://gitlab.freedesktop.org/drm/xe/kernel.git %{_srcdir}
+%endif
+
+cd %{_srcdir}
+%autopatch -p1 -v -M 20
 
     cp %{SOURCE1} .config
 
@@ -152,6 +161,14 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
     # Enable CACHY sauce and the scheduler
     # used in the default linux-cachyos kernel
     scripts/config -e CACHY -e SCHED_BORE
+
+    # Firmware attributes + MSI WMI support
+    scripts/config -e FW_ATTR_CLASS
+    scripts/config -e ACPI_WMI
+    scripts/config -e MSI_WMI
+    scripts/config -e MSI_WMI_PLATFORM
+    scripts/config -e HID_MSI_CLAW
+    scripts/config -e ASUS_ARMOURY
 
     # Use SElinux by default
     # https://github.com/sirlucjan/copr-linux-cachyos/pull/1
@@ -198,7 +215,6 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
 cd %{_builddir}/%{_nv_pkg}/kernel-open
 %patch -P 10 -p1
 cd ..
-%autopatch -p1 -v -m 11 -M 19
 %endif
 
 %build
