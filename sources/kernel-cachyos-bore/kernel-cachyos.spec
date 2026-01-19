@@ -113,7 +113,7 @@ BuildRequires:  llvm
 BuildRequires:  gcc-c++
 %endif
 
-Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/config
+Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos-rc/config
 
 %if %{_build_minimal}
 Source2:        https://raw.githubusercontent.com/Frogging-Family/linux-tkg/master/linux-tkg-config/%{_basekver}/minimal-modprobed.db
@@ -394,12 +394,9 @@ Recommends:     linux-firmware
     fi
 
 %files core
-    %license COPYING
     %ghost %attr(0600, root, root) /boot/initramfs-%{_kver}.img
     %ghost %attr(0644, root, root) /boot/symvers-%{_kver}.zst
     %{_kernel_dir}/vmlinuz
-    %{_kernel_dir}/modules.builtin
-    %{_kernel_dir}/modules.builtin.modinfo
     %{_kernel_dir}/symvers.zst
     %{_kernel_dir}/config
     %{_kernel_dir}/System.map
