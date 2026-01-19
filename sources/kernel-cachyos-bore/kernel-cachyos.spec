@@ -434,10 +434,8 @@ Requires:       kernel-uname-r = %{_kver}
 
 %files modules
     %dir %{_kernel_dir}
-    %{_kernel_dir}/modules.order
     %{_kernel_dir}/build
     %{_kernel_dir}/source
-    %{_kernel_dir}/kernel
 
 %package devel
 Summary:        Development package for building kernel modules to match %{name}
