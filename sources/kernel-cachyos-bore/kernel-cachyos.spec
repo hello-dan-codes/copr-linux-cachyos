@@ -57,7 +57,7 @@
 %define _kernel_dir /lib/modules/%{_kver}
 %define _devel_dir %{_usrsrc}/kernels/%{_kver}
 
-%define _patch_src https://raw.githubusercontent.com/CachyOS/kernel-patches/master/%{_basekver}
+%define _patch_src https://raw.githubusercontent.com/hello-dan-codes/kernel-patches/master/%{_basekver}
 
 %if %{_build_lto}
     %define _lto_args CC=clang CXX=clang++ LD=ld.lld LLVM=1 LLVM_IAS=1
@@ -123,8 +123,8 @@ Source2:        https://raw.githubusercontent.com/Frogging-Family/linux-tkg/mast
 Source10:       https://github.com/NVIDIA/open-gpu-kernel-modules/archive/%{_nv_ver}/%{_nv_pkg}.tar.gz
 %endif
 
-# Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
-# Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
+Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
+Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
 
 %if %{_build_lto}
 Patch2:         %{_patch_src}/misc/dkms-clang.patch
