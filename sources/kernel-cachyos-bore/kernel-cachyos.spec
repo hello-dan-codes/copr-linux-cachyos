@@ -219,6 +219,7 @@ cd ..
 %endif
 
 %build
+    cd %{_builddir}/%{_srcdir}
     %make_build EXTRAVERSION=-%{release}.%{_arch} all
     %make_build -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
 
@@ -228,6 +229,7 @@ cd ..
     %endif
 
 %install
+    cd %{_builddir}/%{_srcdir}
     echo "Installing the kernel image..."
     install -Dm644 "$(%make_build -s image_name)" "%{buildroot}%{_kernel_dir}/vmlinuz"
     zstdmt -19 < Module.symvers > %{buildroot}%{_kernel_dir}/symvers.zst
