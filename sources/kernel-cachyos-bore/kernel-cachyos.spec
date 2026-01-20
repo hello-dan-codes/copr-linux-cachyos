@@ -444,7 +444,8 @@ Recommends:     linux-firmware
         else
             KERNEL_CMDLINE="$EXTRA_PARAM"
         fi
-        /bin/kernel-install add --cmdline "$KERNEL_CMDLINE" %{_kver} %{_kernel_dir}/vmlinuz || exit $?
+        printf '%s\n' "$KERNEL_CMDLINE" > "$CMDLINE_FILE"
+        /bin/kernel-install add %{_kver} %{_kernel_dir}/vmlinuz || exit $?
         if [[ ! -e "/boot/symvers-%{_kver}.zst" ]]; then
             cp "%{_kernel_dir}/symvers.zst" "/boot/symvers-%{_kver}.zst"
             if command -v restorecon &>/dev/null; then
