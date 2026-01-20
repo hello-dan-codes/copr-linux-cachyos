@@ -1,7 +1,7 @@
 # Fedora bits
 %define __spec_install_post %{__os_install_post}
 %define _build_id_links none
-%define _default_patch_fuzz 3
+%define _default_patch_fuzz 2
 %define _disable_source_fetch 0
 %define debug_package %{nil}
 %define make_build make %{?_lto_args} %{?_smp_mflags}
@@ -22,8 +22,8 @@
     %define _tarkver %{version}
 %endif
 
-# GitLab archive extracts to "kernel/"
-%define _srcdir kernel
+# GitLab archive extracts to "linux/"
+%define _srcdir linux
 
 # Build a minimal a kernel via modprobed.db
 # file to reduce build times
@@ -57,7 +57,7 @@
 %define _kernel_dir /lib/modules/%{_kver}
 %define _devel_dir %{_usrsrc}/kernels/%{_kver}
 
-%define _patch_src https://raw.githubusercontent.com/hello-dan-codes/kernel-patches/master/%{_basekver}
+%define _patch_src https://raw.githubusercontent.com/CachyOS/kernel-patches/master/%{_basekver}
 
 %if %{_build_lto}
     %define _lto_args CC=clang CXX=clang++ LD=ld.lld LLVM=1 LLVM_IAS=1
@@ -147,10 +147,10 @@ The meta package for %{name}.
 %prep
 %if 0%{?rhel}
 # Clone the git repository for RHEL-based systems
-git clone --depth 1 --branch drm-xe-next https://gitlab.freedesktop.org/drm/xe/kernel.git %{_srcdir}
+git clone --depth 1 --branch v6.19-rc6-drm-xe-next https://github.com/hello-dan-codes/linux.git %{_srcdir}
 %else
 # For other systems, fall back to tarball via git archive if needed
-git clone --depth 1 --branch drm-xe-next https://gitlab.freedesktop.org/drm/xe/kernel.git %{_srcdir}
+git clone --depth 1 --branch v6.19-rc6-drm-xe-next https://github.com/hello-dan-codes/linux.git %{_srcdir}
 %endif
 
 cd %{_srcdir}
@@ -434,8 +434,10 @@ Requires:       kernel-uname-r = %{_kver}
 
 %files modules
     %dir %{_kernel_dir}
+    %{_kernel_dir}/modules.order
     %{_kernel_dir}/build
     %{_kernel_dir}/source
+    %{_kernel_dir}/kernel
 
 %package devel
 Summary:        Development package for building kernel modules to match %{name}
