@@ -166,6 +166,9 @@ cd %{_srcdir}
     # Ensure kernel module support is enabled
     scripts/config -e MODULES
 
+    # Ensure git tree doesn't append a local version suffix
+    scripts/config -d LOCALVERSION_AUTO
+
     # PCIe power management default (favor performance)
     scripts/config -e PCIEASPM_PERFORMANCE
 
@@ -279,7 +282,15 @@ cd ..
     zstdmt -19 < Module.symvers > %{buildroot}%{_kernel_dir}/symvers.zst
 
     echo "Installing kernel modules..."
-    ZSTD_CLEVEL=19 %make_build INSTALL_MOD_PATH="%{buildroot}" INSTALL_MOD_STRIP=1 DEPMOD=/doesnt/exist modules_install
+    ZSTD_CLEVEL=19 %make_build KERNELRELEASE=%{_kver} INSTALL_MOD_PATH="%{buildroot}" INSTALL_MOD_STRIP=1 DEPMOD=/doesnt/exist modules_install
+
+    # Some custom trees/configs may build no modules; ensure expected paths exist
+    if [ ! -d %{buildroot}%{_kernel_dir}/kernel ]; then
+        mkdir -p %{buildroot}%{_kernel_dir}/kernel
+    fi
+    if [ ! -f %{buildroot}%{_kernel_dir}/modules.order ]; then
+        touch %{buildroot}%{_kernel_dir}/modules.order
+    fi
 
     echo "Installing files for the development package..."
     install -Dt %{buildroot}%{_devel_dir} -m644 .config Makefile Module.symvers System.map tools/bpf/bpftool/vmlinux.h
