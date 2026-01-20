@@ -163,6 +163,9 @@ cd %{_srcdir}
     # used in the default linux-cachyos kernel
     scripts/config -e CACHY -e SCHED_BORE
 
+    # Ensure kernel module support is enabled
+    scripts/config -e MODULES
+
     # Firmware attributes + MSI WMI support
     scripts/config -e FW_ATTR_CLASS
     scripts/config -e ACPI_WMI
@@ -220,7 +223,7 @@ cd ..
 
 %build
     cd %{_builddir}/%{_srcdir}
-    %make_build EXTRAVERSION=-%{release}.%{_arch} all
+    %make_build EXTRAVERSION=-%{release}.%{_arch} all modules
     %make_build -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
 
     %if %{_build_nv}
