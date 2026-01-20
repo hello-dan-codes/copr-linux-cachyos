@@ -422,7 +422,18 @@ Recommends:     linux-firmware
 %posttrans core
     rm -f %{_localstatedir}/lib/rpm-state/%{name}/installing_core_%{_kver}
     if [ ! -e /run/ostree-booted ]; then
-        /bin/kernel-install add %{_kver} %{_kernel_dir}/vmlinuz || exit $?
+        EXTRA_PARAM="intel_tcc_cooling.tcc_offset_default=10"
+        CMDLINE_FILE=/etc/kernel/cmdline
+        if [ -f "$CMDLINE_FILE" ]; then
+            if grep -qw "$EXTRA_PARAM" "$CMDLINE_FILE"; then
+                KERNEL_CMDLINE="$(cat "$CMDLINE_FILE")"
+            else
+                KERNEL_CMDLINE="$(cat "$CMDLINE_FILE") $EXTRA_PARAM"
+            fi
+        else
+            KERNEL_CMDLINE="$EXTRA_PARAM"
+        fi
+        /bin/kernel-install add --cmdline "$KERNEL_CMDLINE" %{_kver} %{_kernel_dir}/vmlinuz || exit $?
         if [[ ! -e "/boot/symvers-%{_kver}.zst" ]]; then
             cp "%{_kernel_dir}/symvers.zst" "/boot/symvers-%{_kver}.zst"
             if command -v restorecon &>/dev/null; then
