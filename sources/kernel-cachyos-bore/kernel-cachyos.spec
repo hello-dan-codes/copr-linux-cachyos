@@ -382,8 +382,8 @@ cd ..
     # These links will be owned by the modules package, creating a broken
     # link unless the -devel package is installed. why??
     rm -rf %{buildroot}%{_kernel_dir}/build
-    ln -s %{_devel_dir} %{buildroot}%{_kernel_dir}/build
-    ln -s %{_kernel_dir}/build %{buildroot}%{_kernel_dir}/source
+    ln -s ../../../usr/src/kernels/%{_kver} %{buildroot}%{_kernel_dir}/build
+    ln -s build %{buildroot}%{_kernel_dir}/source
 
     # Create stub initramfs to inflate disk space requirements.
     # This should hopefully prevent some initramfs failures due to
@@ -463,6 +463,8 @@ Recommends:     linux-firmware
     %ghost %attr(0600, root, root) /boot/initramfs-%{_kver}.img
     %ghost %attr(0644, root, root) /boot/symvers-%{_kver}.zst
     %{_kernel_dir}/vmlinuz
+    %{_kernel_dir}/modules.builtin
+    %{_kernel_dir}/modules.builtin.modinfo
     %{_kernel_dir}/symvers.zst
     %{_kernel_dir}/config
     %{_kernel_dir}/System.map
@@ -578,3 +580,7 @@ Recommends:     xorg-x11-drv-nvidia >= %{_nv_ver}
 %endif
 
 %files
+
+%changelog
+* Mon Jan 20 2026 Dan James <danjames@example.com> - %{version}-%{release}
+- Custom build tweaks
