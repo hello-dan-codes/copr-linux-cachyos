@@ -166,6 +166,46 @@ cd %{_srcdir}
     # Ensure kernel module support is enabled
     scripts/config -e MODULES
 
+    # PCIe power management default (favor performance)
+    scripts/config -e PCIEASPM_PERFORMANCE
+
+    # Intel Xe graphics (Arc 140V)
+    scripts/config -m DRM_XE
+    scripts/config -e DRM_XE_DISPLAY
+    scripts/config -e DRM_XE_DP_TUNNEL
+    scripts/config -e DRM_XE_GPUSVM
+    scripts/config -e DRM_XE_PAGEMAP
+
+    # Aggressive performance (security trade-offs)
+    scripts/config -d CPU_MITIGATIONS
+    scripts/config -d MITIGATION_RETPOLINE
+    scripts/config -d MITIGATION_RETHUNK
+    scripts/config -d MITIGATION_IBRS_ENTRY
+    scripts/config -d MITIGATION_SPECTRE_BHI
+    scripts/config -d MITIGATION_MDS
+    scripts/config -d MITIGATION_L1TF
+    scripts/config -d MITIGATION_SPECTRE_V1
+    scripts/config -d MITIGATION_SPECTRE_V2
+    scripts/config -d MITIGATION_SSB
+    scripts/config -d X86_KERNEL_IBT
+    scripts/config -d CFI
+    scripts/config -d STACKPROTECTOR
+    scripts/config -d STACKPROTECTOR_STRONG
+    scripts/config -d HARDENED_USERCOPY
+    scripts/config -d FORTIFY_SOURCE
+    scripts/config -d RANDOMIZE_BASE
+    scripts/config -d RANDOMIZE_MEMORY
+    scripts/config -d PAGE_TABLE_CHECK
+    scripts/config -d PAGE_TABLE_CHECK_ENFORCED
+    scripts/config -d SLAB_FREELIST_HARDENED
+    scripts/config -d SLAB_FREELIST_RANDOM
+    scripts/config -d RANDOM_KMALLOC_CACHES
+    scripts/config -d SHUFFLE_PAGE_ALLOCATOR
+    scripts/config -d INIT_ON_ALLOC_DEFAULT_ON
+    scripts/config -d INIT_ON_FREE_DEFAULT_ON
+    scripts/config -d INIT_STACK_ALL_ZERO
+    scripts/config -d KSTACK_ERASE
+
     # Firmware attributes + MSI WMI support
     scripts/config -e FW_ATTR_CLASS
     scripts/config -e ACPI_WMI
@@ -173,6 +213,7 @@ cd %{_srcdir}
     scripts/config -e MSI_WMI_PLATFORM
     scripts/config -e HID_MSI_CLAW
     scripts/config -e ASUS_ARMOURY
+    
 
     # Use SElinux by default
     # https://github.com/sirlucjan/copr-linux-cachyos/pull/1
