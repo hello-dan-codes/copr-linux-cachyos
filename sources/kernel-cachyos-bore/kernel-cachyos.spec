@@ -168,6 +168,7 @@ cd %{_srcdir}
 
     # Ensure git tree doesn't append a local version suffix
     scripts/config -d LOCALVERSION_AUTO
+    scripts/config --set-str LOCALVERSION ""
 
     # PCIe power management default (favor performance)
     scripts/config -e PCIEASPM_PERFORMANCE
@@ -270,7 +271,7 @@ cd ..
 
 %build
     cd %{_builddir}/%{_srcdir}
-    %make_build EXTRAVERSION=-%{release}.%{_arch} all modules
+    %make_build EXTRAVERSION=-%{release}.%{_arch} KERNELRELEASE=%{_kver} all modules
     %make_build -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
 
     %if %{_build_nv}
