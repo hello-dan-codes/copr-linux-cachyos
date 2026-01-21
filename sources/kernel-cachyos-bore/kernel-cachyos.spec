@@ -179,6 +179,9 @@ cd %{_srcdir}
     scripts/config -e DRM_XE_GPUSVM
     scripts/config -e DRM_XE_PAGEMAP
 
+    # Device mapper (dm_mod) for LVM/crypt targets
+    scripts/config -m BLK_DEV_DM
+
     # Aggressive performance (security trade-offs)
     scripts/config -d CPU_MITIGATIONS
     scripts/config -d MITIGATION_RETPOLINE
