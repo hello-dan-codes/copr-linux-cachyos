@@ -15,6 +15,7 @@
 %define _gittag v6.19-rc5
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
+%define _release_date %(date +%Y%m%d)
 
 %if %{_stablekver} == 0
     %define _tarkver %{_basekver}
@@ -51,7 +52,7 @@
 %define _hz_tick 1000
 
 # Defines the x86_64 ISA level used
-%define _x86_64_lvl 4
+%define _x86_64_lvl 3
 
 # Define variables for directory paths
 %define _kernel_dir /lib/modules/%{_kver}
@@ -72,7 +73,7 @@
 Name:           kernel-cachyos%{?_lto_args:-lto}
 Summary:        Linux BORE %{?_lto_args:+ LTO }Cachy Sauce Kernel by CachyOS with other patches and improvements.
 Version:        %{_basekver}.%{_stablekver}
-Release:        cachyosdj006%{?_lto_args:.lto}%{?dist}
+Release:        cachyos.%{_release_date}%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
 URL:            https://cachyos.org
 
