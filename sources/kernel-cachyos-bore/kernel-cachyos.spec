@@ -12,7 +12,6 @@
 # Linux Kernel Versions
 %define _basekver 6.19
 %define _stablekver 0
-%define _gittag v6.19-rc7
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 %define _release_date %(date +%Y%m%d)
@@ -72,8 +71,8 @@
 
 Name:           kernel-cachyos%{?_lto_args:-lto}
 Summary:        Linux BORE %{?_lto_args:+ LTO }Cachy Sauce Kernel by CachyOS with other patches and improvements.
-Version:        %{_basekver}.%{_stablekver}.02
-Release:        %{_gittag}.cachyos.%{_release_date}%{?_lto_args:.lto}%{?dist}
+Version:        %{_basekver}.%{_stablekver}.%{_release_date}
+Release:        cachyos.%{_release_date}%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
 URL:            https://cachyos.org
 
