@@ -12,7 +12,7 @@
 # Linux Kernel Versions
 %define _basekver 6.19
 %define _stablekver 0
-%define _gittag v6.19-rc5
+%define _gittag v6.19-rc7
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 %define _release_date %(date +%Y%m%d)
@@ -148,10 +148,10 @@ The meta package for %{name}.
 %prep
 %if 0%{?rhel}
 # Clone the git repository for RHEL-based systems
-git clone --depth 1 --branch v6.19-rc6-drm-xe-next https://github.com/hello-dan-codes/linux.git %{_srcdir}
+git clone --depth 1 --branch master https://github.com/hello-dan-codes/linux.git %{_srcdir}
 %else
 # For other systems, fall back to tarball via git archive if needed
-git clone --depth 1 --branch v6.19-rc6-drm-xe-next https://github.com/hello-dan-codes/linux.git %{_srcdir}
+git clone --depth 1 --branch master https://github.com/hello-dan-codes/linux.git %{_srcdir}
 %endif
 
 cd %{_srcdir}
