@@ -71,8 +71,8 @@
 
 Name:           kernel-cachyos%{?_lto_args:-lto}
 Summary:        Linux BORE %{?_lto_args:+ LTO }Cachy Sauce Kernel by CachyOS with other patches and improvements.
-Version:        %{_basekver}.%{_stablekver}.%{_release_date}
-Release:        cachyos%{?_lto_args:.lto}%{?dist}
+Version:        %{_basekver}.%{_stablekver}.01
+Release:        cachyos.%{_release_date}%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
 URL:            https://cachyos.org
 
