@@ -573,3 +573,7 @@ Recommends:     xorg-x11-drv-nvidia >= %{_nv_ver}
 %endif
 
 %files
+
+%changelog
+* Tue Jan 20 2026 Dan James <danjames@example.com> - %{version}-%{release}
+- Custom build tweaks
