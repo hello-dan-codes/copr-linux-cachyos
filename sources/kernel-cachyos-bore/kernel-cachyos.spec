@@ -123,12 +123,18 @@ Source2:        https://raw.githubusercontent.com/Frogging-Family/linux-tkg/mast
 Source10:       https://github.com/NVIDIA/open-gpu-kernel-modules/archive/%{_nv_ver}/%{_nv_pkg}.tar.gz
 %endif
 
-Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
+# Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
 Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
 
 %if %{_build_lto}
 Patch2:         %{_patch_src}/misc/dkms-clang.patch
 %endif
+
+Patch3: %{_patch_src}/misc/0001-acpi-call.patch
+Patch4: %{_patch_src}/misc/0001-cgroup-vram.patch
+Patch5: %{_patch_src}/misc/0001-clang-polly.patch
+Patch6: %{_patch_src}/misc/0001-handheld.patch
+Patch7: %{_patch_src}/misc/0001-rt-i915.patch
 
 %if %{_build_nv}
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
