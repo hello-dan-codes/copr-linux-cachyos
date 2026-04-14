@@ -1,7 +1,7 @@
 # Fedora bits
 %define __spec_install_post %{__os_install_post}
 %define _build_id_links none
-%define _default_patch_fuzz 3
+%define _default_patch_fuzz 2
 %define _disable_source_fetch 0
 %define debug_package %{nil}
 %define make_build make %{?_lto_args} %{?_smp_mflags}
@@ -123,7 +123,11 @@ Source2:        https://raw.githubusercontent.com/Frogging-Family/linux-tkg/mast
 Source10:       https://github.com/NVIDIA/open-gpu-kernel-modules/archive/%{_nv_ver}/%{_nv_pkg}.tar.gz
 %endif
 
-Patch1:         %{_patch_src}/sched-dev/0001-bore-cachy.patch
+# No longer in repo
+# Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
+
+# Patch in linux source manually
+# Patch1:         %{_patch_src}/sched-dev/0001-bore-cachy.patch
 
 %if %{_build_lto}
 Patch2:         %{_patch_src}/misc/dkms-clang.patch
