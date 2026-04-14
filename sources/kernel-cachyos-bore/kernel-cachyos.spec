@@ -71,7 +71,7 @@
 
 Name:           kernel-cachyos%{?_lto_args:-lto}
 Summary:        Linux BORE %{?_lto_args:+ LTO }Cachy Sauce Kernel by CachyOS with other patches and improvements.
-Version:        %{_basekver}.%{_stablekver}.01
+Version:        %{_basekver}.%{_stablekver}
 Release:        cachyos.%{_release_date}%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
 URL:            https://cachyos.org
@@ -133,11 +133,6 @@ Patch2:         %{_patch_src}/misc/dkms-clang.patch
 %if %{_build_nv}
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
 %endif
-
-Patch11:        %{_patch_src}/misc/0001-handheld.patch
-
-Source12:       0001-Increased-PL2-from-37-to-38.patch
-Patch12:        0001-Increased-PL2-from-37-to-38.patch
 
 %description
 The meta package for %{name}.
